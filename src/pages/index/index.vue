@@ -14,6 +14,8 @@
       </div>
     </div>
 
+    <button @click="test">登录</button> 
+
     <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
@@ -28,7 +30,7 @@ import card from '@/components/card'
 export default {
   data () {
     return {
-      motto: 'Hello World',
+      motto: 'Hello World！！！',
       userInfo: {}
     }
   },
@@ -55,9 +57,17 @@ export default {
       })
     },
     clickHandle (msg, ev) {
-      console.log('clickHandle:', msg, ev)
-    }
-  },
+      // console.log('clickHandle:', msg, ev)
+    },
+    test () {
+      console.log('login')
+      wx.login({
+        success (data) {
+          console.log('login code', data)
+        }
+      })
+    },
+  }, 
 
   created () {
     // 调用应用实例的方法获取全局数据
