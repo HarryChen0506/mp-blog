@@ -15,6 +15,7 @@
     </div>
 
     <button @click="test">登录</button> 
+    <button @click="logincode">logincode</button> 
 
     <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
@@ -26,6 +27,7 @@
 
 <script>
 import card from '@/components/card'
+import {base} from '@/services/service'
 
 export default {
   data () {
@@ -67,6 +69,17 @@ export default {
         }
       })
     },
+    async logincode () {
+      base.logincode("12345").then(res => {
+        console.log('res', res)
+      })
+      
+      // wx.login({
+      //   async success (data) {
+      //     console.log('login code', data)
+      //   }
+      // })          
+    }
   }, 
 
   created () {
