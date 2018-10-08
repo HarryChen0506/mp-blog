@@ -11,7 +11,8 @@ export const base = {
       url: `${getHost()}/mp/api/wechat/wlyh/logincode`,
       data: {
         code,
-        appId: config.appId
+        appId: config.appId,
+        appSecret: config.appSecret
       },
       method: 'POST',
       dataType: 'json'
@@ -139,6 +140,7 @@ export const base = {
     })
   }
 }
+
 
 export default {
   base

@@ -153,11 +153,24 @@ function commonRequest (option = {}) {
     
     try {      
       // let result = await wxRequest(newOption)      
-      wxRequest(newOption).then(res => {        
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-      })     
+      wx.request({
+        url: option.url,
+        method: option.method,
+        data: option.data,
+        header: option.header,
+        dataType: option.dataType,   
+        success: function(res) {
+          const {data, statusCode, errMsg} = res
+          if (statusCode === 200) {
+            resolve(data)
+          } else {
+            reject(errMsg)
+          } 
+        },
+        fail: function(err){
+          reject(err)
+        }
+      })
     } catch (err) {
       reject(err)
     }

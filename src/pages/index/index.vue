@@ -13,9 +13,9 @@
         <card :text="motto"></card>
       </div>
     </div>
-
+    <!-- <button @click="demo">异步</button>  -->
     <button @click="test">登录</button> 
-    <button @click="logincode">logincode</button> 
+    <button @click="logincode">logincode</button>
 
     <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
@@ -27,7 +27,7 @@
 
 <script>
 import card from '@/components/card'
-import {base} from '@/services/service'
+import {base, demo} from '@/services/service'
 
 export default {
   data () {
@@ -50,8 +50,10 @@ export default {
       // 调用登录接口
       wx.login({
         success: () => {
+          console.log('login')
           wx.getUserInfo({
             success: (res) => {
+              console.log('wx.getUserInfo', res)
               this.userInfo = res.userInfo
             }
           })
@@ -69,16 +71,17 @@ export default {
         }
       })
     },
-    async logincode () {
-      base.logincode("12345").then(res => {
-        console.log('res', res)
+    async logincode () {     
+      wx.login({
+        async success (data) {
+          console.log('login code', data.code)
+          const res = await base.logincode(data.code)
+          console.log('codeRes', res)
+        }
       })
-      
-      // wx.login({
-      //   async success (data) {
-      //     console.log('login code', data)
-      //   }
-      // })          
+    },
+    async demo () {
+      console.log('demo')
     }
   }, 
 
