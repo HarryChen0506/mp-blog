@@ -11,6 +11,7 @@
 	"compileType": "miniprogram",
 	"appid": "wxc41d9fc2cdd02cf2",
 	"projectname": "mp-blog",
+	"libVersion": "2.0.0",
 	"condition": {
 		"search": {
 			"current": -1,
