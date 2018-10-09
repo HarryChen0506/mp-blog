@@ -1,11 +1,11 @@
 // host域名管理
-const ENV = 'dev' // 'dev' 本地
-// const ENV = 'test' // 'test' 测试
+// const ENV = 'dev' // 'dev' 本地
+const ENV = 'test' // 'test' 测试
 // const ENV = 'prod' // 'prod' 生产
 const host = {
   miniapi: {
     dev: 'http://localhost:8082',
-    test: 'https://mini-programdev.api.versa-ai.com',
+    test: 'https://sunny.natapp4.cc',
     prod: 'https://mini-program.api.versa-ai.com'
   },
   upload: {

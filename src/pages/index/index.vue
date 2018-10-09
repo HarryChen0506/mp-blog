@@ -21,6 +21,7 @@
     <!-- <button @click="demo">异步</button>  -->
     <button open-type="getUserInfo" @getuserinfo="getUesrInfo">getUserInfo</button>
     <button @click="logincode">logincode</button>
+    <button @click="test">test</button>
 
     <!-- <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
@@ -76,13 +77,9 @@ export default {
     clickHandle (msg, ev) {
       // console.log('clickHandle:', msg, ev)
     },
-    test () {
-      console.log('login')
-      wx.login({
-        success (data) {
-          console.log('login code', data)
-        }
-      })
+    async test () {
+      const res = await base.test()
+      console.log('test', res)
     },
     async logincode () {
       const self = this

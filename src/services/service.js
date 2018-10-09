@@ -6,6 +6,17 @@ import config from './config.js'
 
 // 基础服务
 export const base = {
+  test: function () {
+    const reqData = {
+      url: `${getHost()}/mp/api/wechat/wlyh/demo`,
+      data: {
+        name: 123
+      },
+      method: 'GET',
+      dataType: 'json'
+    }
+    return http.commonRequest(reqData)
+  },
   logincode: function (code) {
     const reqData = {
       url: `${getHost()}/mp/api/wechat/wlyh/logincode`,
