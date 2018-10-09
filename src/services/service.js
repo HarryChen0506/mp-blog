@@ -19,6 +19,15 @@ export const base = {
     }
     return http.commonRequest(reqData)
   },
+  updateUserInfo: function (data) {
+    const reqData = {
+      url: `${getHost()}/mp/api/wechat/wlyh/userinfo`,
+      data: data,
+      method: 'POST',
+      dataType: 'json'
+    }
+    return http.commonRequest(reqData)
+  },
   // 待删
   uploadToken: function () {
     const reqData = {

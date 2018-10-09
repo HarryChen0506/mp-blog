@@ -13,14 +13,19 @@
         <card :text="motto"></card>
       </div>
     </div>
+    <div>
+      <span>openid: {{openid}}</span><br>
+      <span>userId: {{userId}}</span><br>
+      <!-- <span>session_key: {{session_key}}</span> -->
+    </div>
     <!-- <button @click="demo">异步</button>  -->
-    <button @click="test">登录</button> 
+    <button open-type="getUserInfo" @getuserinfo="getUesrInfo">getUserInfo</button>
     <button @click="logincode">logincode</button>
 
-    <form class="form-container">
+    <!-- <form class="form-container">
       <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
       <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
+    </form> -->
     <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
   </div>
 </template>
@@ -28,12 +33,16 @@
 <script>
 import card from '@/components/card'
 import {base, demo} from '@/services/service'
+import config from '@/services/config.js'
 
 export default {
   data () {
     return {
       motto: 'Hello World！！！',
-      userInfo: {}
+      userInfo: {},
+      openid: '',
+      userId: '',
+      session_key: ''
     }
   },
 
@@ -46,19 +55,23 @@ export default {
       const url = '../logs/main'
       wx.navigateTo({ url })
     },
-    getUserInfo () {
-      // 调用登录接口
-      wx.login({
-        success: () => {
-          console.log('login')
-          wx.getUserInfo({
-            success: (res) => {
-              console.log('wx.getUserInfo', res)
-              this.userInfo = res.userInfo
-            }
-          })
-        }
-      })
+    async getUesrInfo (e) {
+      console.log('e', e)
+      const {userInfo, encryptedData, id, iv, rawData, signature} = e.target
+      this.userInfo = userInfo
+      const postData = {
+        openId: this.openid , 
+        appId: config.appId,
+        userInfo,
+        encryptedData, 
+        iv, 
+        rawData, 
+        signature
+      }
+      console.log('postData', postData)
+      const res = await base.updateUserInfo(postData)
+      this.userId = res.result.Id
+      console.log('userUpdata res', res)
     },
     clickHandle (msg, ev) {
       // console.log('clickHandle:', msg, ev)
@@ -71,12 +84,16 @@ export default {
         }
       })
     },
-    async logincode () {     
+    async logincode () {
+      const self = this
       wx.login({
         async success (data) {
-          console.log('login code', data.code)
+          // console.log('login code', data.code)
           const res = await base.logincode(data.code)
+          const {openid, session_key} = res.result
           console.log('codeRes', res)
+          self.openid = openid
+          self.session_key = session_key
         }
       })
     },
@@ -87,7 +104,7 @@ export default {
 
   created () {
     // 调用应用实例的方法获取全局数据
-    this.getUserInfo()
+    this.logincode()
   }
 }
 </script>
@@ -111,7 +128,7 @@ export default {
 }
 
 .usermotto {
-  margin-top: 150px;
+  margin-top: 10px;
 }
 
 .form-control {
