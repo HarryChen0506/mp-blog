@@ -182,6 +182,17 @@ export const article = {
       dataType: 'json'
     }
     return http.commonRequest(reqData)
+  },
+  chapterList: function (params) {
+    const reqData = {
+      url: `${getHost()}/mp/api/wechat/wlyh/article/chapter/list`,
+      data: {
+        ...params
+      },
+      method: 'GET',
+      dataType: 'json'
+    }
+    return http.commonRequest(reqData)
   }
 }
 

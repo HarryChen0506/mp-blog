@@ -23,7 +23,7 @@ export default {
   mounted () {},
   watch: {
     defaultCategory (curVal, oldVal) {
-      console.log(curVal, oldVal)
+      // console.log(curVal, oldVal)
       this.selectedCategory = curVal
     }
   },

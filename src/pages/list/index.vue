@@ -8,7 +8,9 @@
     <navbar :list="categoryList" :default-category="defaultCategory" @select-category="chooseCategory"></navbar>
     <div class="article-list">
       <ul>
-        <li class="article-item" v-for="item in articleList" :key="item.Id">
+        <li class="article-item" v-for="item in articleList" :key="item.Id"
+          @click="goToPage(item)"
+        >
           <span>{{item.title}}</span> --
           <span>{{item.writers[0].name}}</span>
         </li>
@@ -47,7 +49,7 @@ export default {
     async getCategoryList () {   
       const res = await article.category()
       this.categoryList = res.result.list || []
-      this.defaultCategory = this.currentCategory = this.categoryList[1]
+      this.defaultCategory = this.currentCategory = this.categoryList[0]
       this.getArticleList()
     },
     chooseCategory (item) {
@@ -65,12 +67,19 @@ export default {
       const res = await article.articleList(params)
       this.articleList = res.result.list
       // console.log('getArticleList', res)
+    },
+    goToPage (item) {
+      // console.log('item', item)
+      const articleId = item.Id
+      wx.navigateTo({
+        url: `/pages/article/main?articleId=${articleId}`
+      })
     }
   },
-  onShow: function() {
+  onShow: function(options) {
     // Do something when page show.
-    // wx.hideTabBar({animation: true})
-  },
+    // wx.hideTabBar({animation: true})   
+  }
 }
 </script>
 
