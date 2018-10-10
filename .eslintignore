@@ -4,3 +4,4 @@ config/*.js
 src/pages/*
 src/services/*
 src/utils/*
+src/components/*

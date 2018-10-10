@@ -1,6 +1,6 @@
 // host域名管理
-// const ENV = 'dev' // 'dev' 本地
-const ENV = 'test' // 'test' 测试
+const ENV = 'dev' // 'dev' 本地
+// const ENV = 'test' // 'test' 测试
 // const ENV = 'prod' // 'prod' 生产
 const host = {
   miniapi: {

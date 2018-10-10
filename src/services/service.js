@@ -161,7 +161,32 @@ export const base = {
   }
 }
 
+// 业务服务
+export const article = {
+  category: function () {    
+    const reqData = {
+      url: `${getHost()}/mp/api/wechat/wlyh/category/all`,
+      data: {},
+      method: 'GET',
+      dataType: 'json'
+    }
+    return http.commonRequest(reqData)
+  },
+  articleList: function (params) {
+    const reqData = {
+      url: `${getHost()}/mp/api/wechat/wlyh/article/list`,
+      data: {
+        ...params
+      },
+      method: 'GET',
+      dataType: 'json'
+    }
+    return http.commonRequest(reqData)
+  }
+}
+
 
 export default {
-  base
+  base,
+  article
 }

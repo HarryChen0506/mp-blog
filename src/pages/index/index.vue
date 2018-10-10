@@ -33,7 +33,7 @@
 
 <script>
 import card from '@/components/card'
-import {base, demo} from '@/services/service'
+import {base} from '@/services/service'
 import config from '@/services/config.js'
 
 export default {
